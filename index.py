@@ -1,67 +1,52 @@
-from tkinter import *
-from functools import partial
-import time
+contal = "RX"
+contas = "rx123"
+
 import os
-
-clear = lambda: os.system('cls')
-janela = Tk()
-janela.title("MENU")
-
-def login():
-    print("1 2 3 Login")
-    janela.title("Login")
-
-    lb2 = Label(janela, text="Login:")
-    lb2.grid(row=0,column=0)
-    passwordEntry = Entry(janela)
-    passwordEntry.grid(row=0,column=1)
-
-    lb3 = Label(janela, text="Senha:")
-    lb3.grid(row=1,column=0)
-    ep = StringVar
-    ed2 = Entry(janela, textvariable=ep, show="*")
-    ed2.grid(row=1,column=1)
-
-    bt1 = Button(janela, text="Confirmar", command=Checkbutton)
-    bt1.grid(row=2,column=1)
-    janela.geometry("300x300")
-    janela.mainloop()
-
-def register():
-    print("1 2 3 Register")
-    janela.title("Registre-se")
-
-    lb2 = Label(janela, text="Login:")
-    lb2.grid(row=0,column=0)
-    passwordEntry = Entry(janela)
-    passwordEntry.grid(row=0,column=1)
-
-    lb3 = Label(janela, text="Senha:")
-    lb3.grid(row=1,column=0)
-    ep = StringVar
-    ed2 = Entry(janela, textvariable=ep, show="*")
-    ed2.grid(row=1,column=1)
-
-    lb4 = Label(janela, text="Confirmar Senha:")
-    lb4.grid(row=2,column=0)
-    ep = StringVar
-    ed3 = Entry(janela, textvariable=ep, show="*")
-    ed3.grid(row=2,column=1)
-
-    bt1 = Button(janela, text="Confirmar", command=Checkbutton)
-    bt1.grid(row=3,column=1)
-    janela.geometry("300x300")
-    janela.mainloop()
+import getpass
+clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 def main():
-    lb1 = Label(janela, text="Escolha uma opção abaixo")
-    lb1.grid(row=0,column=1)
-    bt2 = Button(janela, text="Login", command=login)
-    bt2.grid(row=1,column=1)
-    bt3 = Button(janela, text="Registrar", command=register)
-    bt3.grid(row=2,column=1)
-    janela.geometry("300x300")
-    janela.mainloop()
+    print(" MENU ")
+    print("")
+    print("1 - Login")
+    print("2 - Registrar")
+    print("")
+    op = int(input('Digite a sua escolha: '))
+    if op == 1:
+        clear()
+        login()
+    elif op == 2: 
+        clear()
+        registrar()
+    else: 
+        print("Opção Inválida!")
+        
+def login():
+    print("Login: ")
+    user = input('Digite o seu usuário: ')
+    if user == contal: 
+        senha =  getpass.getpass(prompt='Digite a sua senha:')
+        if senha == contas: 
+            print("Autenticado com sucesso!")
+            encomendas()
+        else: 
+            print("Senha incorreta.")
+    else: 
+        print("Usuário não encontrado.")
+def registrar():
+    print("Registrar: ")
+    user = input('Digite o seu usuário: ')
+    if user == contal:
+        print("Uma conta ja foi registrada com esse usuário!")
+    else: 
+        senha =  getpass.getpass(prompt='Digite a sua senha: ')
+        senha2 =  getpass.getpass(prompt='Confirme a sua senha: ')
+        if senha == senha2: 
+            print("Conta registrada com sucesso!")
+        else: 
+            print("As senhas não são iguais.")
     
+def encomendas():
+    print("Encomenda test")
 
 main()
