@@ -1,5 +1,8 @@
+#Contas 
 contal = "RX"
 contas = "rx123"
+#Produtos
+ProdutoM = "teclado"
 
 import os
 import getpass
@@ -26,14 +29,16 @@ def login():
     user = input('Digite o seu usuário: ')
     if user == contal: 
         senha =  getpass.getpass(prompt='Digite a sua senha:')
-        if senha == contas: 
+        if senha == contas:
+            clear()
             print("Autenticado com sucesso!")
-            encomendas()
+            escolha()
         else: 
             print("Senha incorreta.")
     else: 
         print("Usuário não encontrado.")
-def registrar():
+
+def registrar(): 
     print("Registrar: ")
     user = input('Digite o seu usuário: ')
     if user == contal:
@@ -45,8 +50,38 @@ def registrar():
             print("Conta registrada com sucesso!")
         else: 
             print("As senhas não são iguais.")
+
+def escolha():
+    opc = int(input('1 - Encomendar; 2 - Catalogo: '))
+    clear()
+    if opc == 1: 
+        encomendas()
+    elif opc == 2: 
+        catalogo()
+    else: 
+        print('Digite uma opção válida')
     
-def encomendas():
-    print("Encomenda test")
+def encomendas():  #Aonde o cliente vai pedir encomendas
+    clear()
+    produto = input('Digite o Produto que deseja: ')
+    if produto == ProdutoM:
+        qant = int(input('Digite a quantidade do produto: '))
+        print('Produto adicionado ao carrinho.')
+        opc = input('Deseja ir para o carrinho? (Y/N): ')
+        if opc == "Y":
+            print('Carrinho test')
+            #carrinho()
+        else:
+            escolha()
+    else: 
+        print('Produto não encontrado!')
+        escolha()
+
+def catalogo(): #Mostrar todos os produtos para o cliente
+    clear()
+    print('Catalogo')
+    print('')
+    print(ProdutoM)
+    escolha()
 
 main()
