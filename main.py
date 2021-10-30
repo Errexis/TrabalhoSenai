@@ -6,11 +6,8 @@ import sqlite3
 
 clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 conn = sqlite3.connect('db.db')
-print(conn)
 
-mycursor = conn.cursor()
-contal = mycursor.execute('SELECT user FROM contas')
-contas = "rx123"
+c = conn.cursor()
 
 def main():
     print(" MENU ")
@@ -31,34 +28,47 @@ def main():
 def login():
     print("Login: ")
     user = input('Digite o seu usuário: ')
-    if user == contal: 
+    try:
+        c.execute("SELECT senha FROM contas WHERE user ='{}'".format(user))
+        contas = c.fetchall()
         senha =  getpass.getpass(prompt='Digite a sua senha:')
-        if senha == contas:
+        if (senha == contas[0][0]):
             clear()
             print("Autenticado com sucesso!")
             escolha()
         else: 
             print("Senha incorreta.")
             main()
-    else: 
-        print("Usuário não encontrado.")
-        main()
+        conn.close()
+    except:
+            print("Usuário inválido")
+            main()
 
 def registrar(): 
     print("Registrar: ")
     user = input('Digite o seu usuário: ')
-    if user == contal:
-        print("Uma conta ja foi registrada com esse usuário!")
-        main()
-    else: 
-        senha =  getpass.getpass(prompt='Digite a sua senha: ')
-        senha2 =  getpass.getpass(prompt='Confirme a sua senha: ')
-        if senha == senha2: 
-            print("Conta registrada com sucesso!")
+    contal = c.execute("SELECT user FROM contas WHERE user ='{}'".format(user))
+    contas = c.fetchall()
+    try:
+        if (user == contas[0][0]):
+            print("Uma conta ja foi registrada com esse usuário!")
             main()
-        else: 
-            print("As senhas não são iguais.")
-            main()
+    except: 
+            senha =  getpass.getpass(prompt='Digite a sua senha: ')
+            senha2 =  getpass.getpass(prompt='Confirme a sua senha: ')
+            if (senha == senha2):
+                try:
+                    c.execute("INSERT INTO contas VALUES ('"+user+"','"+senha+"')")
+                    print("Conta registrada com sucesso!")
+                    conn.commit()
+                    conn.close()
+                    main()
+                except sqlite3.Error as error:
+                    print("Erro ao inserir os dados: ",erro)
+            else: 
+                print("As senhas não são iguais.")
+                main()
+
 
 def escolha():
     opc = int(input('1 - Gerente; 2 - Operario: '))
