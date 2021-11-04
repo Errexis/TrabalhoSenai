@@ -1,7 +1,9 @@
 import os
 import getpass
-import ObjetoPedido
-from Operario import Operario
+from Operario import Operario  
+from Gerente import Gerente
+from Compras import Compras
+from Logistica import Logistica
 import sqlite3
 
 clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
@@ -71,14 +73,26 @@ def registrar():
 
 
 def escolha():
-    opc = int(input('1 - Gerente; 2 - Operario: '))
     clear()
-    if opc == 1: 
-        encomendas()
-    elif opc == 2: 
-        Operario.Main()
-    else: 
-        print('Digite uma opção válida')
+    print("#######SELECIONE CONTA#######")
+    print("1-Operario")
+    print("2-Gerente")
+    print("3-Compras")
+    print("4-Logistica")
+    print("9-Sair")
+    r = input(": ")
+    if int(r) == 1:
+        Operario.main()
+    elif int(r) == 2:
+        Gerente.main()
+    elif int(r) == 3:
+        Compras.main()
+    elif int(r) == 4:
+        Logistica.main()
+    elif int(r) == 9:
         return
+    else:
+        escolha()
+      
     
 main()

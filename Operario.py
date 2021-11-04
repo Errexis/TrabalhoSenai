@@ -5,7 +5,7 @@ clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 lista = ObjetoPedido.listaP
 
 class Operario:
-    def Main():
+    def main():
         clear()
         print("#######PERFIL OPERACIONAL#######")
         print("1-Solicitar produto")
@@ -19,7 +19,7 @@ class Operario:
         elif int(r) == 5:
             return
         else:
-            Operario.Main()
+            Operario.main()
  
         
     def CriarPedido(): #cria pedido novo
@@ -28,7 +28,7 @@ class Operario:
         qtd = input("Quantidade:")
         pp = ObjetoPedido.Pedido(nome,qtd)
         lista.append(pp)
-        Operario.Main()
+        Operario.main()
  
     def VerLista(): #lista pedidos
         clear()
@@ -55,4 +55,4 @@ class Operario:
                 print("Produto Entregue")
             print("")
         x = input("")
-        Operario.Main()
+        Operario.main()
