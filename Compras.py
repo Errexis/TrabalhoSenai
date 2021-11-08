@@ -64,4 +64,3 @@ class Compras:
 #except ValueError: #se input não for 's' nem int
 #    print("input incorreto")
 #    x = input("")
-
