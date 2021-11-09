@@ -14,76 +14,83 @@ c = conn.cursor()
 
 root = Tk()
 root.geometry("200x200")
+root.configure(bg="blue")
 
 def main():
     root.title("Menu")
     lb = Label(root, text="Escolha uma opção abaixo")
-    lb.grid(row=0,column=0)
+    lb.grid(row=0,column=3)
+    lb.configure(bg="blue")
     bt = Button(root, text="Login", command=login)
-    bt.grid(row=1,column=0)
+    bt.grid(row=1,column=3)
+    bt.configure(bg="white")
     bt2 = Button(root, text="Registrar", command=registrar)
-    bt2.grid(row=2,column=0)
+    bt2.grid(row=2,column=3)
+    bt2.configure(bg="white")
     root.mainloop()
 
 def login():
     root.destroy()
-    janela2 = Tk()
-    janela2.title("Login")
+    janela = Tk()
+    janela.title("Login")
+    janela.configure(bg="blue")
 
-    lb2 = Label(janela2, text="Login:")
+    lb2 = Label(janela, text="Login:")
     lb2.grid(row=0,column=0)
-    passwordEntry = Entry(janela2)
-    passwordEntry.grid(row=0,column=1)
+    lb2.configure(bg="blue")
+    login = Entry(janela)
+    login.grid(row=0,column=1)
+    login.configure(bg="grey")
 
-    lb3 = Label(janela2, text="Senha:")
+    lb3 = Label(janela, text="Senha:")
     lb3.grid(row=1,column=0)
+    lb3.configure(bg="blue")
     ep = StringVar
-    ed2 = Entry(janela2, textvariable=ep, show="*")
+    ed2 = Entry(janela, textvariable=ep, show="*")
     ed2.grid(row=1,column=1)
+    ed2.configure(bg="grey")
 
-    bt1 = Button(janela2, text="Confirmar", command=Checkbutton)
+    bt1 = Button(janela, text="Confirmar", command=logar)
     bt1.grid(row=2,column=1)
-    janela2.geometry("300x300")
-    janela2.mainloop()
-    if Checkbutton:
-        try:
-            c.execute("SELECT senha FROM contas WHERE user ='{}'".format(lb2))
-            contas = c.fetchall()
-            if (lb3 == contas[0][0]):
+    janela.geometry("300x300")
+    janela.mainloop()
+def logar():
+    try:
+        c.execute("SELECT senha FROM contas WHERE user ='{}'".format(lb2))
+        contas = c.fetchall()
+        for x in range(1000):  
+            if (lb3 == contas[i]):
                 clear()
                 print("Autenticado com sucesso!")
                 escolha()
             else: 
                 print("Senha incorreta.")
-                main()
             conn.close()
-        except:
-            print("Usuário inválido")
-            main()
+    except:
+        print("Usuário inválido")
     
 def registrar(): 
     root.destroy()
-    janela3 = Tk()
-    janela3.title("Registrar")
-    janela3.geometry("300x300")
-    lb2 = Label(janela3, text="Login:")
+    janela.title("Registrar")
+    janela.geometry("300x300")
+    lb2 = Label(janela, text="Login:")
     lb2.grid(row=0,column=0)
-    passwordEntry = Entry(janela3)
+    passwordEntry = Entry(janela)
     passwordEntry.grid(row=0,column=1)
 
-    lb3 = Label(janela3, text="Senha:")
+    lb3 = Label(janela, text="Senha:")
     lb3.grid(row=1,column=0)
     ep = StringVar
-    ed2 = Entry(janela3, textvariable=ep, show="*")
+    ed2 = Entry(janela, textvariable=ep, show="*")
     ed2.grid(row=1,column=1)
 
-    lb4 = Label(janela3, text="Confirmar Senha:")
+    lb4 = Label(janela, text="Confirmar Senha:")
     lb4.grid(row=2,column=0)
     ep = StringVar
-    ed3 = Entry(janela3, textvariable=ep, show="*")
+    ed3 = Entry(janela, textvariable=ep, show="*")
     ed3.grid(row=2,column=1)
 
-    bt1 = Button(janela3, text="Confirmar", command=Checkbutton)
+    bt1 = Button(janela, text="Confirmar", command=Checkbutton)
     bt1.grid(row=3,column=1)
     contal = c.execute("SELECT user FROM contas WHERE user ='{}'".format(lb2))
     contas = c.fetchall()
