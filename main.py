@@ -8,53 +8,50 @@ import sqlite3
 from tkinter import *
 
 clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+#Database
 conn = sqlite3.connect('db.db')
-
 c = conn.cursor()
-
+#Cores
+colorbg = "#4935F1"
+bt = "#9187E1"
+camp = "#B5B3C1"
+#Janela Tkinter
 root = Tk()
 root.geometry("200x200")
-root.configure(bg="blue")
+root.configure(bg=colorbg)
 
-def main():
-    root.title("Menu")
-    lb = Label(root, text="Escolha uma opção abaixo")
-    lb.grid(row=0,column=3)
-    lb.configure(bg="blue")
-    bt = Button(root, text="Login", command=login)
-    bt.grid(row=1,column=3)
-    bt.configure(bg="white")
-    bt2 = Button(root, text="Registrar", command=registrar)
-    bt2.grid(row=2,column=3)
-    bt2.configure(bg="white")
+def main(): #Menu para login/Registro
+    root.title("Login")
+    root.configure(bg=colorbg)
+
+    lb = Label(root, text="Stark - Logística")
+    lb.place(x=10 ,y=10)
+    lb.configure(bg=colorbg)
+    lb2 = Label(root, text="Usuário:")
+    lb2.place(x=10 ,y=35)
+    lb2.configure(bg=colorbg)
+    login = Entry(root, border=0)
+    login.place(x=10 ,y=60)
+    login.configure(bg=camp)
+
+    lb3 = Label(root, text="Senha:")
+    lb3.place(x=10 ,y=90)
+    lb3.configure(bg=colorbg)
+    ep = StringVar
+    ed2 = Entry(root, textvariable=ep, show="*", border=0)
+    ed2.place(x=10 ,y=110)
+    ed2.configure(bg=camp)
+    #criar conta
+    cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
+    cr.place(x=10 ,y=130)
+    
+    bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
+    bt1.place(x=10 ,y=170)
+    bt1.configure(bg=bt )
+    root.geometry("210x210")
     root.mainloop()
 
-def login():
-    root.destroy()
-    janela = Tk()
-    janela.title("Login")
-    janela.configure(bg="blue")
-
-    lb2 = Label(janela, text="Login:")
-    lb2.grid(row=0,column=0)
-    lb2.configure(bg="blue")
-    login = Entry(janela)
-    login.grid(row=0,column=1)
-    login.configure(bg="grey")
-
-    lb3 = Label(janela, text="Senha:")
-    lb3.grid(row=1,column=0)
-    lb3.configure(bg="blue")
-    ep = StringVar
-    ed2 = Entry(janela, textvariable=ep, show="*")
-    ed2.grid(row=1,column=1)
-    ed2.configure(bg="grey")
-
-    bt1 = Button(janela, text="Confirmar", command=logar)
-    bt1.grid(row=2,column=1)
-    janela.geometry("300x300")
-    janela.mainloop()
-def logar():
+def logar(): #Função de Logar 
     try:
         c.execute("SELECT senha FROM contas WHERE user ='{}'".format(lb2))
         contas = c.fetchall()
@@ -69,29 +66,40 @@ def logar():
     except:
         print("Usuário inválido")
     
-def registrar(): 
+def registrar(): #Menu de Registro
     root.destroy()
+    janela = Tk()
     janela.title("Registrar")
-    janela.geometry("300x300")
-    lb2 = Label(janela, text="Login:")
-    lb2.grid(row=0,column=0)
-    passwordEntry = Entry(janela)
-    passwordEntry.grid(row=0,column=1)
+    janela.geometry("200x250")
+    janela.configure(bg=colorbg)
+    lb2 = Label(janela, text="Usuário:")
+    lb2.place(x=10 ,y=10)
+    lb2.configure(bg=colorbg)
+    passwordEntry = Entry(janela, border=0)
+    passwordEntry.place(x=10 ,y=35)
+    passwordEntry.configure(bg=camp)
 
-    lb3 = Label(janela, text="Senha:")
-    lb3.grid(row=1,column=0)
+    se = Label(janela, text="Senha:")
+    se.configure(bg=colorbg)
+    se.place(x=10 ,y=60)
     ep = StringVar
-    ed2 = Entry(janela, textvariable=ep, show="*")
-    ed2.grid(row=1,column=1)
+    ed2 = Entry(janela, textvariable=ep, show="*", border=0)
+    ed2.place(x=10 ,y=80)
+    ed2.configure(bg=camp)
 
-    lb4 = Label(janela, text="Confirmar Senha:")
-    lb4.grid(row=2,column=0)
+    se2 = Label(janela, text="Confirmar Senha:")
+    se2.place(x=10 ,y=105)
+    se2.configure(bg=colorbg)
     ep = StringVar
-    ed3 = Entry(janela, textvariable=ep, show="*")
-    ed3.grid(row=2,column=1)
+    ed3 = Entry(janela, textvariable=ep, show="*", border=0)
+    ed3.place(x=10 ,y=130)
+    ed3.configure(bg=camp)
 
-    bt1 = Button(janela, text="Confirmar", command=Checkbutton)
-    bt1.grid(row=3,column=1)
+    bt1 = Button(janela, text="Registrar", command=registro, border=0, cursor="hand2")
+    bt1.place(x=10 ,y=165)
+    bt1.configure(bg=bt)
+    
+def registro(): #Função de registrar
     contal = c.execute("SELECT user FROM contas WHERE user ='{}'".format(lb2))
     contas = c.fetchall()
     try:
@@ -99,23 +107,19 @@ def registrar():
             print("Uma conta ja foi registrada com esse usuário!")
             main()
     except: 
-            senha =  getpass.getpass(prompt='Digite a sua senha: ')
-            senha2 =  getpass.getpass(prompt='Confirme a sua senha: ')
-            if (senha == senha2):
-                try:
-                    c.execute("INSERT INTO contas VALUES ('"+lb2+"','"+senha+"')")
-                    print("Conta registrada com sucesso!")
-                    conn.commit()
-                    conn.close()
-                    main()
-                except sqlite3.Error as error:
-                    print("Erro ao inserir os dados: ",erro)
-            else: 
-                print("As senhas não são iguais.")
-                main()
+        if (se == se2):
+            try:
+                c.execute("INSERT INTO contas VALUES ('"+lb2+"','"+senha+"')")
+                print("Conta registrada com sucesso!")
+                conn.commit()
+                conn.close()
+            except sqlite3.Error as error:
+                print("Erro ao inserir os dados: ",erro)
+        else: 
+            print("As senhas não são iguais.")
 
 
-def escolha():
+def escolha(): #Menu de escolha
     root.destroy()
     janela4 = Tk()
     janela4.title("Menu de Escolha")
