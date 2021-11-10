@@ -7,7 +7,7 @@ c = conn.cursor()
 
 #Login Query
 def login():
-    lg = c.execute("SELECT user FROM contas WHERE user")
+    lg = c.execute("SELECT * FROM contas WHERE user='"+user+"' and senha='"+senha+"'")
 
 #Registrar Query
 
