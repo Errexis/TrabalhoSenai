@@ -12,10 +12,11 @@ clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 conn = sqlite3.connect('db.db')
 c = conn.cursor()
 #Cores
-colorbg = "#4935F1"
-bt = "#9187E1"
+colorbg = "#47CDB5"
+bt = "#00A687"
 camp = "#B5B3C1"
 colorerro = "#ff0000"
+colorsucess = "#018415"
 #Janela Tkinter
 root = Tk()
 root.geometry("200x200")
@@ -25,75 +26,97 @@ def logar(): #Função de Logar
     try:
         user = login.get()
         password = senha.get()
-        c.execute("SELECT * FROM contas WHERE user='"+user+"' and senha='"+password+"'")
+        c.execute(f"SELECT * FROM contas WHERE user='{user}' and senha='{password}'")
         contas = c.fetchone()  
         if contas:
             clear()
             print("Autenticado com sucesso!")
             escolha()
-        else: 
+            conn.close()
+        else:
             eruser = Label(root, text="Usuário/senha inválido.")
             eruser.place(x=10 ,y=160)
             eruser.configure(bg=colorbg,fg=colorerro , border=0)
-        conn.close()
     except:
-        er = Label(root, text="Algo deu Errado.")
+        er = Label(root, text="Algo deu errado.")
         er.place(x=10 ,y=160)
         er.configure(bg=colorbg,fg=colorerro , border=0)
 
-    
+def registro(): #Função de registrar
+    global login2
+    global senha2
+    global senha3
+    global janela
+    login2 = login2.get()
+    senha2 = senha2.get()
+    senha3 = senha3.get()
+    c.execute(f"SELECT user FROM contas WHERE user ='{login2}'")
+    contas = c.fetchone()
+    print(senha2)
+    try:
+        if contas:
+            lb = Label(janela, text="Uma conta ja foi registrada com esse usuário.", border=0)
+            lb.place(x=10,y=155)
+            lb.configure(bg=colorbg, fg=colorerro)
+        else:
+            if senha2 == senha3:
+                try:
+                    conn.commit()
+                    c.execute(f"INSERT INTO contas ('user','senha') VALUES ('{login2}','{senha2}')")
+                    lb2 = Label(janela, text="Conta registrada com sucesso.", border=0)
+                    lb2.place(x=10,y=155)
+                    lb2.configure(bg=colorbg, fg=colorsucess)
+                    conn.close()
+                except sqlite3.Error as error:
+                    print("Erro ao inserir os dados: ",error)
+            else:
+                conn.commit()
+                lb3 = Label(janela, text="As senhas não são iguais", border=0)
+                lb3.place(x=10,y=155)
+                lb3.configure(bg=colorbg, fg=colorerro)
+                conn.close()
+    except:
+        lb3 = Label(janela, text="Algo deu errado.", border=0)
+        lb3.place(x=10,y=155)
+        lb3.configure(bg=colorbg, fg=colorerro)
+
+
 def registrar(): #Menu de Registro
+    global login2
+    global senha2
+    global senha3
+    global janela
     root.destroy()
     janela = Tk()
     janela.title("Registrar")
-    janela.geometry("200x250")
+    janela.geometry("255x250")
     janela.configure(bg=colorbg)
     lb2 = Label(janela, text="Usuário:")
     lb2.place(x=10 ,y=10)
     lb2.configure(bg=colorbg)
-    passwordEntry = Entry(janela, border=0)
-    passwordEntry.place(x=10 ,y=35)
-    passwordEntry.configure(bg=camp)
+    login2 = Entry(janela, border=0)
+    login2.place(x=10 ,y=35)
+    login2.configure(bg=camp)
 
     se = Label(janela, text="Senha:")
     se.configure(bg=colorbg)
     se.place(x=10 ,y=60)
     ep = StringVar
-    ed2 = Entry(janela, textvariable=ep, show="*", border=0)
-    ed2.place(x=10 ,y=80)
-    ed2.configure(bg=camp)
+    senha2 = Entry(janela, textvariable=ep, show="*", border=0)
+    senha2.place(x=10 ,y=80)
+    senha2.configure(bg=camp)
 
     se2 = Label(janela, text="Confirmar Senha:")
     se2.place(x=10 ,y=105)
     se2.configure(bg=colorbg)
     ep = StringVar
-    ed3 = Entry(janela, textvariable=ep, show="*", border=0)
-    ed3.place(x=10 ,y=130)
-    ed3.configure(bg=camp)
+    senha3 = Entry(janela, textvariable=ep, show="*", border=0)
+    senha3.place(x=10 ,y=130)
+    senha3.configure(bg=camp)
 
     bt1 = Button(janela, text="Registrar", command=registro, border=0, cursor="hand2")
-    bt1.place(x=10 ,y=165)
+    bt1.place(x=10 ,y=180)
     bt1.configure(bg=bt)
-    
-def registro(): #Função de registrar
-    contal = c.execute("SELECT user FROM contas WHERE user ='{}'".format(lb2))
-    contas = c.fetchall()
-    try:
-        if (lb2 == contas[0][0]):
-            print("Uma conta ja foi registrada com esse usuário!")
-            main()
-    except: 
-        if (se == se2):
-            try:
-                c.execute("INSERT INTO contas VALUES ('"+lb2+"','"+senha+"')")
-                print("Conta registrada com sucesso!")
-                conn.commit()
-                conn.close()
-            except sqlite3.Error as error:
-                print("Erro ao inserir os dados: ",erro)
-        else: 
-            print("As senhas não são iguais.")
-
 
 def escolha(): #Menu de escolha
     root.destroy()
