@@ -52,29 +52,28 @@ def registro(): #Função de registrar
     senha3 = senha3.get()
     c.execute(f"SELECT user FROM contas WHERE user ='{login2}'")
     contas = c.fetchone()
-    print(senha2)
     try:
         if contas:
             lb = Label(janela, text="Uma conta ja foi registrada com esse usuário.", border=0)
-            lb.place(x=10,y=155)
-            lb.configure(bg=colorbg, fg=colorerro)
+            lb.place(x=10,y=170)
+            lb.configure(bg=colorbg, fg=colorerro)  
         else:
             if senha2 == senha3:
                 try:
-                    conn.commit()
                     c.execute(f"INSERT INTO contas ('user','senha') VALUES ('{login2}','{senha2}')")
                     lb2 = Label(janela, text="Conta registrada com sucesso.", border=0)
                     lb2.place(x=10,y=155)
                     lb2.configure(bg=colorbg, fg=colorsucess)
-                    conn.close()
+                    conn.commit()
+                    return login2
                 except sqlite3.Error as error:
                     print("Erro ao inserir os dados: ",error)
+                    return login2
             else:
-                conn.commit()
                 lb3 = Label(janela, text="As senhas não são iguais", border=0)
                 lb3.place(x=10,y=155)
                 lb3.configure(bg=colorbg, fg=colorerro)
-                conn.close()
+                return login2
     except:
         lb3 = Label(janela, text="Algo deu errado.", border=0)
         lb3.place(x=10,y=155)
@@ -115,7 +114,7 @@ def registrar(): #Menu de Registro
     senha3.configure(bg=camp)
 
     bt1 = Button(janela, text="Registrar", command=registro, border=0, cursor="hand2")
-    bt1.place(x=10 ,y=180)
+    bt1.place(x=10 ,y=190)
     bt1.configure(bg=bt)
 
 def escolha(): #Menu de escolha
