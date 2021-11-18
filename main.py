@@ -22,17 +22,17 @@ root = Tk()
 root.geometry("200x200")
 root.configure(bg=colorbg)
 
-def logar(): #Função de Logar 
+def logar(): #Função de Logar
     try:
         user = login.get()
         password = senha.get()
         c.execute(f"SELECT * FROM contas WHERE user='{user}' and senha='{password}'")
         contas = c.fetchone()  
         if contas:
-            clear()
-            print("Autenticado com sucesso!")
-            escolha()
-            conn.close()
+            suser = Label(root, text=f"Seja bem vindo {user}.        ")
+            suser.place(x=10 ,y=160)
+            suser.configure(bg=colorbg, fg=colorsucess, border=0)
+            root.after(2000, escolha)
         else:
             eruser = Label(root, text="Usuário/senha inválido.")
             eruser.place(x=10 ,y=160)
@@ -65,20 +65,21 @@ def registro(): #Função de registrar
                     lb2.place(x=10,y=155)
                     lb2.configure(bg=colorbg, fg=colorsucess)
                     conn.commit()
-                    return login2
                 except sqlite3.Error as error:
                     print("Erro ao inserir os dados: ",error)
-                    return login2
             else:
                 lb3 = Label(janela, text="As senhas não são iguais", border=0)
                 lb3.place(x=10,y=155)
                 lb3.configure(bg=colorbg, fg=colorerro)
-                return login2
     except:
-        lb3 = Label(janela, text="Algo deu errado.", border=0)
-        lb3.place(x=10,y=155)
-        lb3.configure(bg=colorbg, fg=colorerro)
+        print('test 1 2 3')
+        lb4 = Label(janela, text="Algo deu errado.", border=0)
+        lb4.place(x=10,y=155)
+        lb4.configure(bg=colorbg, fg=colorerro)
 
+def Close():
+    global janela2
+    janela2.destroy()
 
 def registrar(): #Menu de Registro
     global login2
@@ -118,29 +119,30 @@ def registrar(): #Menu de Registro
     bt1.configure(bg=bt)
 
 def escolha(): #Menu de escolha
+    global janela2 
     root.destroy()
-    janela = Tk()
-    janela.title("Menu de Escolha")
-    janela.geometry("180x200")
-    janela.configure(bg=colorbg)
+    janela2 = Tk()
+    janela2.title("Menu de Escolha")
+    janela2.geometry("180x200")
+    janela2.configure(bg=colorbg)
 
-    lb = Label(janela, text="Selecione uma opção: " )
+    lb = Label(janela2, text="Selecione uma opção: " )
     lb.place(x=20,y=15)
     lb.configure(bg=colorbg, border=0)
 
-    bt = Button(janela, text="Operario", border=0, cursor="hand2", activebackground=colorbg)
+    bt = Button(janela2, text="Operario", command=Operario.main , border=0, cursor="hand2", activebackground=colorbg)
     bt.place(x= 20, y=40)
 
-    bt2 = Button(janela, text="Gerente", border=0, cursor="hand2", activebackground=colorbg)
+    bt2 = Button(janela2, text="Gerente", border=0, cursor="hand2", activebackground=colorbg)
     bt2.place(x= 20, y=65)
 
-    bt3 = Button(janela, text="Compras", border=0, cursor="hand2", activebackground=colorbg)
+    bt3 = Button(janela2, text="Compras", border=0, cursor="hand2", activebackground=colorbg)
     bt3.place(x= 20, y=90)
 
-    bt4 = Button(janela, text="Logistica", border=0, cursor="hand2", activebackground=colorbg)
+    bt4 = Button(janela2, text="Logistica",border=0, cursor="hand2", activebackground=colorbg)
     bt4.place(x= 20, y=115)
     
-    bt5 = Button(janela, text="Sair", border=0, cursor="hand2", activebackground=colorbg)
+    bt5 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
     bt5.place(x= 20, y=155)
     
 """     if bt == 1:
