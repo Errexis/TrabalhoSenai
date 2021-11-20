@@ -133,13 +133,13 @@ def escolha(): #Menu de escolha
     bt = Button(janela2, text="Operario", command=Operario.main , border=0, cursor="hand2", activebackground=colorbg)
     bt.place(x= 20, y=40)
 
-    bt2 = Button(janela2, text="Gerente", border=0, cursor="hand2", activebackground=colorbg)
+    bt2 = Button(janela2, text="Gerente", command=Gerente.main , border=0, cursor="hand2", activebackground=colorbg)
     bt2.place(x= 20, y=65)
 
-    bt3 = Button(janela2, text="Compras", border=0, cursor="hand2", activebackground=colorbg)
+    bt3 = Button(janela2, text="Compras", command=Compras.main, border=0, cursor="hand2", activebackground=colorbg)
     bt3.place(x= 20, y=90)
 
-    bt4 = Button(janela2, text="Logistica",border=0, cursor="hand2", activebackground=colorbg)
+    bt4 = Button(janela2, text="Logistica", command=Logistica.main, border=0, cursor="hand2", activebackground=colorbg)
     bt4.place(x= 20, y=115)
     
     bt5 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)

@@ -1,5 +1,8 @@
 import ObjetoPedido
+import main
 import os
+from tkinter import *
+
 clear = lambda: os.system('cls')
 lista = ObjetoPedido.listaP
 
@@ -7,19 +10,31 @@ lista = ObjetoPedido.listaP
 #input incorreto simples
 #loop lista
 
+#Cores
+colorbg = "#47CDB5"
+bt = "#00A687"
+camp = "#B5B3C1"
+colorerro = "#ff0000"
+colorsucess = "#018415"
+
 class Gerente:
-    def main():
-        clear()
-        print("#######PERFIL GERENCIAL#######")
-        print("1-Verificar/Modificar solicitações")
-        print("5-Logout")
-        r = input(": ")
-        if int(r) == 1:
-            Gerente.Lista()
-        elif int(r) == 5:
-            return
-        else:
-            Gerente.main()
+    def main():        
+        main.janela2.destroy()
+        root = Tk()
+        root.geometry("200x200")
+        root.configure(bg=colorbg)
+        root.title("Operario")
+        root.configure(bg=colorbg)
+        
+        lb = Label(root, text="Perfil Gerencial")
+        lb.place(x=20,y=15)
+        lb.configure(bg=colorbg, border=0)
+
+        bt = Button(root, text="Verificar/Modificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
+        bt.place(x= 20, y=40)
+
+        bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
+        bt2.place(x= 20, y=90)
 
     def Lista():
         clear()
@@ -54,4 +69,3 @@ class Gerente:
                         print("input incorreto")
                         x = input("")
                         Gerente.Lista()
-        Gerente.Lista()
