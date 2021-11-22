@@ -161,8 +161,6 @@ def escolha(): #Menu de escolha
     
 
 root.title("Login")
-root.configure(bg=colorbg)
-
 lb = Label(root, text="Stark - Logística")
 lb.place(x=10 ,y=10)
 lb.configure(bg=colorbg)

@@ -24,7 +24,6 @@ class Gerente:
         root.geometry("200x200")
         root.configure(bg=colorbg)
         root.title("Operario")
-        root.configure(bg=colorbg)
         
         lb = Label(root, text="Perfil Gerencial")
         lb.place(x=20,y=15)

@@ -24,7 +24,6 @@ class Compras:
         root.geometry("200x200")
         root.configure(bg=colorbg)
         root.title("Operario")
-        root.configure(bg=colorbg)
         
         lb = Label(root, text="Perfil Compras")
         lb.place(x=20,y=15)
