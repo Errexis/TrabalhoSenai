@@ -23,19 +23,23 @@ class Compras:
         root = Tk()
         root.geometry("200x200")
         root.configure(bg=colorbg)
-        root.title("Operario")
+        root.title("Compras")
         
         lb = Label(root, text="Perfil Compras")
         lb.place(x=20,y=15)
         lb.configure(bg=colorbg, border=0)
 
-        bt = Button(root, text="Verificar/Modificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
+        bt = Button(root, text="Verificar/Modificar solicitações", command=Lista, border=0, cursor="hand2", activebackground=colorbg)
         bt.place(x= 20, y=40)
 
         bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
         bt2.place(x= 20, y=90)
 
-    def Lista():
+    def Lista(): #Alterar os input para tkinter com database
+        janela = Tk()
+        janela.geometry("250x300")
+        janela.configure(bg=colorbg)
+        janela.title("Lista Compras")
         clear()
         h = 0
         print("pressione 's' para sair")

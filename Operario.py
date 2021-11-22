@@ -40,7 +40,11 @@ class Operario:
         #Operario.main()
  
     def VerLista(): #lista pedidos
-        clear()
+        janela = Tk()
+        janela.geometry("250x300")
+        janela.configure(bg=colorbg)
+        janela.title("Lista Operario")
+        clear() #integrar com o tkinter e database
         for obj in lista:
             print("Item: "+obj.qtd+" "+obj.nome)
             

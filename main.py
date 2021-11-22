@@ -23,6 +23,8 @@ root.geometry("200x200")
 root.configure(bg=colorbg)
 
 def logar(): #Função de Logar
+    global login
+    global senha
     try:
         user = login.get()
         password = senha.get()
@@ -159,31 +161,35 @@ def escolha(): #Menu de escolha
         er = Label(janela, text="Escolha uma opção correta!")
         er.place(x=20,y=135) """
     
+def menu():
+    global login
+    global senha
+    root.title("Login")
+    lb = Label(root, text="Stark - Logística")
+    lb.place(x=10 ,y=10)
+    lb.configure(bg=colorbg)
+    lb2 = Label(root, text="Usuário:")
+    lb2.place(x=10 ,y=35)
+    lb2.configure(bg=colorbg)
+    login = Entry(root, border=0)
+    login.place(x=10 ,y=60)
+    login.configure(bg=camp)
 
-root.title("Login")
-lb = Label(root, text="Stark - Logística")
-lb.place(x=10 ,y=10)
-lb.configure(bg=colorbg)
-lb2 = Label(root, text="Usuário:")
-lb2.place(x=10 ,y=35)
-lb2.configure(bg=colorbg)
-login = Entry(root, border=0)
-login.place(x=10 ,y=60)
-login.configure(bg=camp)
+    lb3 = Label(root, text="Senha:")
+    lb3.place(x=10 ,y=90)
+    lb3.configure(bg=colorbg)
+    ep = StringVar
+    senha = Entry(root, textvariable=ep, show="*", border=0)
+    senha.place(x=10 ,y=110)
+    senha.configure(bg=camp)
+    #criar conta
+    cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
+    cr.place(x=10 ,y=130)
 
-lb3 = Label(root, text="Senha:")
-lb3.place(x=10 ,y=90)
-lb3.configure(bg=colorbg)
-ep = StringVar
-senha = Entry(root, textvariable=ep, show="*", border=0)
-senha.place(x=10 ,y=110)
-senha.configure(bg=camp)
-#criar conta
-cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
-cr.place(x=10 ,y=130)
+    bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
+    bt1.place(x=10 ,y=185)
+    bt1.configure(bg=bt )
+    root.geometry("210x210")
+    root.mainloop()
 
-bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
-bt1.place(x=10 ,y=185)
-bt1.configure(bg=bt )
-root.geometry("210x210")
-root.mainloop()
+menu()

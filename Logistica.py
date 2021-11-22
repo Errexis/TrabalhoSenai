@@ -38,13 +38,17 @@ class Logistica:
         bt2 = Button(root, text="Verificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
         bt2.place(x= 20, y=65)
 
-        bt3 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
+        bt3 = Button(root, text="Logout", border=0, cursor="hand2", activebackground=colorbg)
         bt3.place(x= 20, y=90)
 
-    def Lista():
+    def Lista(): #trocar os input e atualizar para o tkinter
+        janela = Tk() #Integrar com a database
+        janela.geometry("250x300")
+        janela.configure(bg=colorbg)
+        janela.title("Lista Logistica")
         clear()
         h = 0
-        print("pressione 's' para sair")
+        print("pressione 's' para sair") 
         print("")
         for x in range(len(lista)): #para cada item na lista
             if int(lista[x].aprovCom) == 1 :
