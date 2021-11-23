@@ -14,8 +14,6 @@ colorerro = "#ff0000"
 colorsucess = "#018415"
 class Operario:
     def CriarPedido(): #cria pedido novo
-        global root
-        root.destroy()
         janela = Tk()
         janela.geometry("200x200")
         janela.configure(bg=colorbg)
@@ -71,8 +69,6 @@ class Operario:
 
     def main():
         #Janela Tkinter
-        global root
-        main.janela2.destroy()
         root = Tk()
         root.geometry("200x200")
         root.configure(bg=colorbg)
