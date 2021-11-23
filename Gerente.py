@@ -18,23 +18,6 @@ colorerro = "#ff0000"
 colorsucess = "#018415"
 
 class Gerente:
-    def main():        
-        main.janela2.destroy()
-        root = Tk()
-        root.geometry("200x200")
-        root.configure(bg=colorbg)
-        root.title("Operario")
-        
-        lb = Label(root, text="Perfil Gerencial")
-        lb.place(x=20,y=15)
-        lb.configure(bg=colorbg, border=0)
-
-        bt = Button(root, text="Verificar/Modificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
-        bt.place(x= 20, y=40)
-
-        bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
-        bt2.place(x= 20, y=90)
-
     def Lista(): #trocar os input e atualizar para o tkinter
         janela = Tk()  #Integrar com a database
         janela.geometry("250x300")
@@ -72,3 +55,20 @@ class Gerente:
                         print("input incorreto")
                         x = input("")
                         Gerente.Lista()
+
+    def main():        #Janela Tkinter0
+        root = Tk()
+        root.geometry("200x200")
+        root.configure(bg=colorbg)
+        root.title("Operario")
+        
+        lb = Label(root, text="Perfil Gerencial")
+        lb.place(x=20,y=15)
+        lb.configure(bg=colorbg, border=0)
+
+        bt = Button(root, text="Verificar/Modificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
+        bt.place(x= 20, y=40)
+
+        bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
+        bt2.place(x= 20, y=90)
+
