@@ -13,6 +13,8 @@ camp = "#B5B3C1"
 colorerro = "#ff0000"
 colorsucess = "#018415"
 
+item = "Lapis"
+status= "Aprovado"
 
 #sair da def lista()
 #input incorreto simples
@@ -21,35 +23,25 @@ colorsucess = "#018415"
 #fazer retirada de produto
 
 class Logistica:
-    def main():
-        main.janela2.destroy()
-        root = Tk()
-        root.geometry("200x200")
-        root.configure(bg=colorbg)
-        root.title("Operario")
-        
-        lb = Label(root, text="Perfil Operacional")
-        lb.place(x=20,y=15)
-        lb.configure(bg=colorbg, border=0)
-
-        bt = Button(root, text="Solicitar produto", border=0, cursor="hand2", activebackground=colorbg)
-        bt.place(x= 20, y=40)
-
-        bt2 = Button(root, text="Verificar solicitações", border=0, cursor="hand2", activebackground=colorbg)
-        bt2.place(x= 20, y=65)
-
-        bt3 = Button(root, text="Logout", border=0, cursor="hand2", activebackground=colorbg)
-        bt3.place(x= 20, y=90)
-
     def Lista(): #trocar os input e atualizar para o tkinter
         janela = Tk() #Integrar com a database
         janela.geometry("250x300")
         janela.configure(bg=colorbg)
         janela.title("Lista Logistica")
-        clear()
+        
+        lb = Label(janela, text="Item") #Colocar os itens e status aqui. 
+        lb.place(x=20, y=15)
+
+        lb2 = Label(janela, text="Status")
+        lb2.place(x=50, y=15)
+
+        lbit = Label(janela, text={item})
+        lbit.place(x=20, y=35)
+
+        lbst = Label(janela, text={status})
+        lbst.place(x=50, y=35)
+
         h = 0
-        print("pressione 's' para sair") 
-        print("")
         for x in range(len(lista)): #para cada item na lista
             if int(lista[x].aprovCom) == 1 :
                 print(str(x)+" "+"Item: "+lista[x].qtd+" "+lista[x].nome)
@@ -62,7 +54,7 @@ class Logistica:
                 print("")
                 h=h+1
 
-        if h == 0 :
+        """ if h == 0 :
             print("Aguardando requisições")
         else:
             y = input("Modificar item nº:")
@@ -81,6 +73,23 @@ class Logistica:
                         else:
                             print("input incorreto")
                             x = input("")
-                            Logistica.Lista()
-        x = input("")
-        Logistica.Lista()
+                            Logistica.Lista() """
+        
+    def main():
+        root = Tk()
+        root.geometry("200x200")
+        root.configure(bg=colorbg)
+        root.title("Operario")
+        
+        lb = Label(root, text="Perfil Operacional")
+        lb.place(x=20,y=15)
+        lb.configure(bg=colorbg, border=0)
+
+        bt = Button(root, text="Solicitar produto", border=0, cursor="hand2", activebackground=colorbg)
+        bt.place(x= 20, y=40)
+
+        bt2 = Button(root, text="Verificar solicitações", command=Logistica.Lista, border=0, cursor="hand2", activebackground=colorbg)
+        bt2.place(x= 20, y=65)
+
+        bt3 = Button(root, text="Logout", border=0, cursor="hand2", activebackground=colorbg)
+        bt3.place(x= 20, y=90)
