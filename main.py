@@ -7,7 +7,6 @@ from Logistica import Logistica
 import sqlite3
 from tkinter import *
 
-clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 #Database
 conn = sqlite3.connect('db.db')
 c = conn.cursor()
@@ -79,7 +78,7 @@ def registro(): #Função de registrar
         lb4.place(x=10,y=155)
         lb4.configure(bg=colorbg, fg=colorerro)
 
-def Close():
+def Close():   #função de fechar a janela
     global janela2
     janela2.destroy()
 
@@ -161,7 +160,7 @@ def escolha(): #Menu de escolha
         er = Label(janela, text="Escolha uma opção correta!")
         er.place(x=20,y=135) """
     
-def menu():
+def menu(): #Menu de login
     global login
     global senha
     root.title("Login")
