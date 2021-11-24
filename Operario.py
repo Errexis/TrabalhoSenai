@@ -33,6 +33,14 @@ class Operario:
         bt = Button(janela, text="Confirmar")
         bt.place(x=10, y=125)
         bt.configure(bg=bt, border=0)
+        pedidoit = it.get()
+        pedidoqt = it2.get()
+        try: 
+            c.execute(f"INSERT INTO produtos ('item','quantidade') VALUES ('{pedidoit}','{pedidoqt}')")
+            conn.commit()
+        except:
+            print('Ocorreu algum erro.')
+            
         #pp = ObjetoPedido.Pedido(nome,qtd)
         #lista.append(pp)
         #Operario.main()
@@ -69,6 +77,7 @@ class Operario:
 
     def main():
         #Janela Tkinter
+        main.janela2.destroy()
         root = Tk()
         root.geometry("200x200")
         root.configure(bg=colorbg)

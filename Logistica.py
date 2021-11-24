@@ -76,6 +76,7 @@ class Logistica:
                             Logistica.Lista() """
         
     def main():
+        main.janela2.destroy()
         root = Tk()
         root.geometry("200x200")
         root.configure(bg=colorbg)

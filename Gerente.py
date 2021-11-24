@@ -56,7 +56,8 @@ class Gerente:
                         x = input("")
                         Gerente.Lista()
 
-    def main():        #Janela Tkinter0
+    def main():        #Janela Tkinter
+        main.janela2.destroy()
         root = Tk()
         root.geometry("200x200")
         root.configure(bg=colorbg)
