@@ -1,7 +1,8 @@
 import os
-import ObjetoPedido
+import ObjetoPedido ######
 import main
 from tkinter import *
+import sqlite3
 
 clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 lista = ObjetoPedido.listaP
@@ -14,6 +15,8 @@ colorerro = "#ff0000"
 colorsucess = "#018415"
 class Operario:
     def CriarPedido(): #cria pedido novo
+        global root
+        root.destroy()
         janela = Tk()
         janela.geometry("200x200")
         janela.configure(bg=colorbg)
@@ -21,29 +24,25 @@ class Operario:
         lb = Label(janela, text="Item:")
         lb.place(x=10 ,y=35)
         lb.configure(bg=colorbg)
-        it = Entry(janela, border=0)
+        it = Entry(janela, border=0) #nome
         it.place(x=10 ,y=55)
         it.configure(bg=camp)
         lb2 = Label(janela, text="Quantidade:")
         lb2.place(x=10 ,y=75)
         lb2.configure(bg=colorbg)
-        it2 = Entry(janela, border=0)
+        it2 = Entry(janela, border=0) #quantidade
         it2.place(x=10 ,y=95)
         it2.configure(bg=camp)
-        bt = Button(janela, text="Confirmar")
+        bt = Button(janela, text="Confirmar", command=lambda: Operario.salvaPedido(it.get(),it2.get())) #salva pedidos
         bt.place(x=10, y=125)
-        bt.configure(bg=bt, border=0)
-        pedidoit = it.get()
-        pedidoqt = it2.get()
-        try: 
-            c.execute(f"INSERT INTO produtos ('item','quantidade') VALUES ('{pedidoit}','{pedidoqt}')")
-            conn.commit()
-        except:
-            print('Ocorreu algum erro.')
-            
-        #pp = ObjetoPedido.Pedido(nome,qtd)
-        #lista.append(pp)
-        #Operario.main()
+        #bt.configure(bg=bt, border=0)  
+
+    def salvaPedido(nome, qtd):
+        pdd = "INSERT INTO pedidos (_nome, _quantidade, _gerente, _compras, _logistica, _entrega) VALUES('"+nome+"','"+qtd+"','espera','espera','espera','não')"
+        db = main.conn #caminho
+        c = db.cursor()
+        c.execute(pdd)
+        db.commit()
  
     def VerLista(): #lista pedidos
         janela = Tk()
@@ -77,6 +76,7 @@ class Operario:
 
     def main():
         #Janela Tkinter
+        global root
         main.janela2.destroy()
         root = Tk()
         root.geometry("200x200")

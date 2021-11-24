@@ -65,7 +65,6 @@ class Logistica:
                     if x == int(y):
                         print(lista[x].qtd + " " +lista[x].nome)
                         r = input("Aprovar(1)   Reprovar(0)")
-
                         if r == 's':
                             Logistica.main()
                         if int(r) == 0 or int(r) == 1:
