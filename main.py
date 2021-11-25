@@ -1,13 +1,12 @@
 import os
 import getpass
-from Operario import Operario  
-from Gerente import Gerente
-from Compras import Compras
-from Logistica import Logistica
+from Operario import menu_operario
+from Gerente import menu_gerente
+from Compras import menu_compras
+from Logistica import menu_logistica
 import sqlite3
 from tkinter import *
 
-clear = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 #Database
 conn = sqlite3.connect('db.db')
 c = conn.cursor()
@@ -23,6 +22,8 @@ root.geometry("200x200")
 root.configure(bg=colorbg)
 
 def logar(): #Função de Logar
+    global login
+    global senha
     try:
         user = login.get()
         password = senha.get()
@@ -130,16 +131,16 @@ def escolha(): #Menu de escolha
     lb.place(x=20,y=15)
     lb.configure(bg=colorbg, border=0)
 
-    bt = Button(janela2, text="Operario", command=Operario.main , border=0, cursor="hand2", activebackground=colorbg)
+    bt = Button(janela2, text="Operario", command=menu_operario, border=0, cursor="hand2", activebackground=colorbg)
     bt.place(x= 20, y=40)
 
-    bt2 = Button(janela2, text="Gerente", command=Gerente.main , border=0, cursor="hand2", activebackground=colorbg)
+    bt2 = Button(janela2, text="Gerente", command=menu_gerente, border=0, cursor="hand2", activebackground=colorbg)
     bt2.place(x= 20, y=65)
 
-    bt3 = Button(janela2, text="Compras", command=Compras.main, border=0, cursor="hand2", activebackground=colorbg)
+    bt3 = Button(janela2, text="Compras", command=menu_compras, border=0, cursor="hand2", activebackground=colorbg)
     bt3.place(x= 20, y=90)
 
-    bt4 = Button(janela2, text="Logistica", command=Logistica.main, border=0, cursor="hand2", activebackground=colorbg)
+    bt4 = Button(janela2, text="Logistica", command=menu_logistica, border=0, cursor="hand2", activebackground=colorbg)
     bt4.place(x= 20, y=115)
     
     bt5 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
@@ -159,31 +160,35 @@ def escolha(): #Menu de escolha
         er = Label(janela, text="Escolha uma opção correta!")
         er.place(x=20,y=135) """
     
+def menu():
+    global login
+    global senha
+    root.title("Login")
+    lb = Label(root, text="Stark - Logística")
+    lb.place(x=10 ,y=10)
+    lb.configure(bg=colorbg)
+    lb2 = Label(root, text="Usuário:")
+    lb2.place(x=10 ,y=35)
+    lb2.configure(bg=colorbg)
+    login = Entry(root, border=0)
+    login.place(x=10 ,y=60)
+    login.configure(bg=camp)
 
-root.title("Login")
-lb = Label(root, text="Stark - Logística")
-lb.place(x=10 ,y=10)
-lb.configure(bg=colorbg)
-lb2 = Label(root, text="Usuário:")
-lb2.place(x=10 ,y=35)
-lb2.configure(bg=colorbg)
-login = Entry(root, border=0)
-login.place(x=10 ,y=60)
-login.configure(bg=camp)
+    lb3 = Label(root, text="Senha:")
+    lb3.place(x=10 ,y=90)
+    lb3.configure(bg=colorbg)
+    ep = StringVar
+    senha = Entry(root, textvariable=ep, show="*", border=0)
+    senha.place(x=10 ,y=110)
+    senha.configure(bg=camp)
+    #criar conta
+    cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
+    cr.place(x=10 ,y=130)
 
-lb3 = Label(root, text="Senha:")
-lb3.place(x=10 ,y=90)
-lb3.configure(bg=colorbg)
-ep = StringVar
-senha = Entry(root, textvariable=ep, show="*", border=0)
-senha.place(x=10 ,y=110)
-senha.configure(bg=camp)
-#criar conta
-cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
-cr.place(x=10 ,y=130)
+    bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
+    bt1.place(x=10 ,y=185)
+    bt1.configure(bg=bt )
+    root.geometry("210x210")
+    root.mainloop()
 
-bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
-bt1.place(x=10 ,y=185)
-bt1.configure(bg=bt )
-root.geometry("210x210")
-root.mainloop()
+menu()
