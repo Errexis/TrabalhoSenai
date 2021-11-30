@@ -120,7 +120,10 @@ def registrar(): #Menu de Registro
     bt1.configure(bg=bt)
 
 def escolha(): #Menu de escolha
-    global janela2 
+    global janela2
+    c.execute("SELECT perm FROM contas WHERE perm ='{}'")
+    permissao = c.fetchall()
+    print(permissao)
     root.destroy()
     janela2 = Tk()
     janela2.title("Menu de Escolha")
@@ -167,6 +170,7 @@ def menu():
     lb = Label(root, text="Stark - Logística")
     lb.place(x=10 ,y=10)
     lb.configure(bg=colorbg)
+    fr = Frame(root, height=13)
     lb2 = Label(root, text="Usuário:")
     lb2.place(x=10 ,y=35)
     lb2.configure(bg=colorbg)
