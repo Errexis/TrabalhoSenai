@@ -24,6 +24,7 @@ root.configure(bg=colorbg)
 def logar(): #Função de Logar
     global login
     global senha
+    global user
     try:
         user = login.get()
         password = senha.get()
@@ -119,11 +120,22 @@ def registrar(): #Menu de Registro
     bt1.place(x=10 ,y=190)
     bt1.configure(bg=bt)
 
+def permissoes():
+    global user
+    c.execute(f"SELECT perm FROM contas WHERE user='{user}'")
+    permissao = c.fetchone()
+    perms = {'Operario': menu_operario,'Gerente': menu_gerente,'Compras': menu_compras,'Logistica': menu_logistica}
+    pesquisa = perms[permissao[0]]
+    if pesquisa:
+        pesquisa()
+        print(pesquisa)
+    else:
+        er = Label(janela, text="Escolha uma opção correta!")
+        er.place(x=20,y=135) 
+    
+
 def escolha(): #Menu de escolha
     global janela2
-    c.execute("SELECT perm FROM contas WHERE perm ='{}'")
-    permissao = c.fetchall()
-    print(permissao)
     root.destroy()
     janela2 = Tk()
     janela2.title("Menu de Escolha")
@@ -134,35 +146,12 @@ def escolha(): #Menu de escolha
     lb.place(x=20,y=15)
     lb.configure(bg=colorbg, border=0)
 
-    bt = Button(janela2, text="Operario", command=menu_operario, border=0, cursor="hand2", activebackground=colorbg)
+    bt = Button(janela2, text="Painel", command=permissoes, border=0, cursor="hand2", activebackground=colorbg)
     bt.place(x= 20, y=40)
-
-    bt2 = Button(janela2, text="Gerente", command=menu_gerente, border=0, cursor="hand2", activebackground=colorbg)
-    bt2.place(x= 20, y=65)
-
-    bt3 = Button(janela2, text="Compras", command=menu_compras, border=0, cursor="hand2", activebackground=colorbg)
-    bt3.place(x= 20, y=90)
-
-    bt4 = Button(janela2, text="Logistica", command=menu_logistica, border=0, cursor="hand2", activebackground=colorbg)
-    bt4.place(x= 20, y=115)
     
-    bt5 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
-    bt5.place(x= 20, y=155)
-    
-"""     if bt == 1:
-        Operario.main()
-    elif bt2 == 2:
-        Gerente.main()
-    elif bt3 == 3:
-        Compras.main()
-    elif bt4 == 4:
-        Logistica.main()
-    elif bt5 == 9:
-        return
-    else:
-        er = Label(janela, text="Escolha uma opção correta!")
-        er.place(x=20,y=135) """
-    
+    bt2 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
+    bt2.place(x= 20, y=75)
+
 def menu():
     global login
     global senha
