@@ -22,8 +22,6 @@ root.geometry("200x200")
 root.configure(bg=colorbg)
 
 def logar(): #Função de Logar
-    global login
-    global senha
     global user
     try:
         user = login.get()
@@ -34,7 +32,7 @@ def logar(): #Função de Logar
             suser = Label(root, text=f"Seja bem vindo {user}.        ")
             suser.place(x=10 ,y=160)
             suser.configure(bg=colorbg, fg=colorsucess, border=0)
-            root.after(2000, escolha)
+            root.after(1000, escolha)
         else:
             eruser = Label(root, text="Usuário/senha inválido.")
             eruser.place(x=10 ,y=160)
@@ -45,14 +43,10 @@ def logar(): #Função de Logar
         er.configure(bg=colorbg,fg=colorerro , border=0)
 
 def registro(): #Função de registrar
-    global login2
-    global senha2
-    global senha3
-    global janela
-    login2 = login2.get()
-    senha2 = senha2.get()
-    senha3 = senha3.get()
-    c.execute(f"SELECT user FROM contas WHERE user ='{login2}'")
+    user2 = login2.get()
+    pass2 = senha2.get()
+    pass3 = senha3.get()
+    c.execute(f"SELECT user FROM contas WHERE user ='{user2}'")
     contas = c.fetchone()
     try:
         if contas:
@@ -60,9 +54,9 @@ def registro(): #Função de registrar
             lb.place(x=10,y=170)
             lb.configure(bg=colorbg, fg=colorerro)  
         else:
-            if senha2 == senha3:
+            if pass2 == pass3:
                 try:
-                    c.execute(f"INSERT INTO contas ('user','senha') VALUES ('{login2}','{senha2}')")
+                    c.execute(f"INSERT INTO contas ('user','senha') VALUES ('{user2}','{pass2}')")
                     lb2 = Label(janela, text="Conta registrada com sucesso.", border=0)
                     lb2.place(x=10,y=155)
                     lb2.configure(bg=colorbg, fg=colorsucess)
@@ -80,13 +74,9 @@ def registro(): #Função de registrar
         lb4.configure(bg=colorbg, fg=colorerro)
 
 def Close():
-    global janela2
     janela2.destroy()
 
 def registrar(): #Menu de Registro
-    global login2
-    global senha2
-    global senha3
     global janela
     root.destroy()
     janela = Tk()
@@ -121,14 +111,12 @@ def registrar(): #Menu de Registro
     bt1.configure(bg=bt)
 
 def permissoes():
-    global user
     c.execute(f"SELECT perm FROM contas WHERE user='{user}'")
     permissao = c.fetchone()
     perms = {'Operario': menu_operario,'Gerente': menu_gerente,'Compras': menu_compras,'Logistica': menu_logistica}
     pesquisa = perms[permissao[0]]
     if pesquisa:
         pesquisa()
-        print(pesquisa)
     else:
         er = Label(janela, text="Escolha uma opção correta!")
         er.place(x=20,y=135) 
@@ -152,36 +140,31 @@ def escolha(): #Menu de escolha
     bt2 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
     bt2.place(x= 20, y=75)
 
-def menu():
-    global login
-    global senha
-    root.title("Login")
-    lb = Label(root, text="Stark - Logística")
-    lb.place(x=10 ,y=10)
-    lb.configure(bg=colorbg)
-    fr = Frame(root, height=13)
-    lb2 = Label(root, text="Usuário:")
-    lb2.place(x=10 ,y=35)
-    lb2.configure(bg=colorbg)
-    login = Entry(root, border=0)
-    login.place(x=10 ,y=60)
-    login.configure(bg=camp)
+root.title("Login")
+lb = Label(root, text="Stark - Logística")
+lb.place(x=10 ,y=10)
+lb.configure(bg=colorbg)
+fr = Frame(root, height=13)
+lb2 = Label(root, text="Usuário:")
+lb2.place(x=10 ,y=35)
+lb2.configure(bg=colorbg)
+login = Entry(root, border=0)
+login.place(x=10 ,y=60)
+login.configure(bg=camp)
 
-    lb3 = Label(root, text="Senha:")
-    lb3.place(x=10 ,y=90)
-    lb3.configure(bg=colorbg)
-    ep = StringVar
-    senha = Entry(root, textvariable=ep, show="*", border=0)
-    senha.place(x=10 ,y=110)
-    senha.configure(bg=camp)
-    #criar conta
-    cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
-    cr.place(x=10 ,y=130)
+lb3 = Label(root, text="Senha:")
+lb3.place(x=10 ,y=90)
+lb3.configure(bg=colorbg)
+ep = StringVar
+senha = Entry(root, textvariable=ep, show="*", border=0)
+senha.place(x=10 ,y=110)
+senha.configure(bg=camp)
+#criar conta
+cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
+cr.place(x=10 ,y=130)
 
-    bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
-    bt1.place(x=10 ,y=185)
-    bt1.configure(bg=bt )
-    root.geometry("210x210")
-    root.mainloop()
-
-menu()
+bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
+bt1.place(x=10 ,y=185)
+bt1.configure(bg=bt )
+root.geometry("210x210")
+root.mainloop()
