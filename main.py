@@ -6,6 +6,7 @@ from Compras import menu_compras
 from Logistica import menu_logistica
 import sqlite3
 from tkinter import *
+from tkinter import ttk
 
 #Database
 conn = sqlite3.connect('db.db')
@@ -16,10 +17,9 @@ bt = "#00A687"
 camp = "#B5B3C1"
 colorerro = "#ff0000"
 colorsucess = "#018415"
+colorfr = "#078FA5"
 #Janela Tkinter
 root = Tk()
-root.geometry("200x200")
-root.configure(bg=colorbg)
 
 def logar(): #Função de Logar
     global user
@@ -29,16 +29,16 @@ def logar(): #Função de Logar
         c.execute(f"SELECT * FROM contas WHERE user='{user}' and senha='{password}'")
         contas = c.fetchone()  
         if contas:
-            suser = Label(root, text=f"Seja bem vindo {user}.        ")
+            suser = Label(pad2, text=f"Seja bem vindo {user}.        ")
             suser.place(x=10 ,y=160)
             suser.configure(bg=colorbg, fg=colorsucess, border=0)
             root.after(1000, escolha)
         else:
-            eruser = Label(root, text="Usuário/senha inválido.")
+            eruser = Label(pad2, text="Usuário/senha inválido.")
             eruser.place(x=10 ,y=160)
             eruser.configure(bg=colorbg,fg=colorerro , border=0)
     except:
-        er = Label(root, text="Algo deu errado.")
+        er = Label(pad2, text="Algo deu errado.")
         er.place(x=10 ,y=160)
         er.configure(bg=colorbg,fg=colorerro , border=0)
 
@@ -78,6 +78,9 @@ def Close():
 
 def registrar(): #Menu de Registro
     global janela
+    global login2
+    global senha2
+    global senha3
     root.destroy()
     janela = Tk()
     janela.title("Registrar")
@@ -141,30 +144,34 @@ def escolha(): #Menu de escolha
     bt2.place(x= 20, y=75)
 
 root.title("Login")
-lb = Label(root, text="Stark - Logística")
+root.configure(bg=colorbg)
+pad = Frame(root, bg=colorfr)
+pad.place(x=0, y=0, width=200, height=100)
+pad2 = Frame(root, bg=colorbg)
+pad2.place(x=0, y=40, width=200, height=220)
+lb = Label(pad, text="Stark - Logística")
 lb.place(x=10 ,y=10)
-lb.configure(bg=colorbg)
-fr = Frame(root, height=13)
-lb2 = Label(root, text="Usuário:")
-lb2.place(x=10 ,y=35)
+lb.configure(bg=colorfr)
+lb2 = Label(pad2, text="Usuário:")
+lb2.place(x=10 ,y=23)
 lb2.configure(bg=colorbg)
-login = Entry(root, border=0)
-login.place(x=10 ,y=60)
+login = Entry(pad2, border=0)
+login.place(x=62 ,y=25)
 login.configure(bg=camp)
 
-lb3 = Label(root, text="Senha:")
-lb3.place(x=10 ,y=90)
+lb3 = Label(pad2, text="Senha:")
+lb3.place(x=10 ,y=58)
 lb3.configure(bg=colorbg)
 ep = StringVar
-senha = Entry(root, textvariable=ep, show="*", border=0)
-senha.place(x=10 ,y=110)
+senha = Entry(pad2, textvariable=ep, show="*", border=0)
+senha.place(x=62 ,y=60)
 senha.configure(bg=camp)
 #criar conta
-cr = Button(root, text="Criar conta", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
-cr.place(x=10 ,y=130)
+cr = Button(pad2, text="Registrar-se", command=registrar, bg=colorbg, border=0, cursor="hand2", activebackground=colorbg)
+cr.place(x=10 ,y=90)
 
-bt1 = Button(root, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
-bt1.place(x=10 ,y=185)
+bt1 = Button(pad2, text="Logar", command=logar, border=0, cursor="hand2", activebackground=colorbg)
+bt1.place(x=10 ,y=130)
 bt1.configure(bg=bt )
-root.geometry("210x210")
+root.geometry("200x250")
 root.mainloop()
