@@ -34,9 +34,16 @@ def menu_gerente():
 
     #bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
     #bt2.place(x= 20, y=90)
-    
+
 
 def Verificar():
+    def atualizar():
+        my_tree.delete(*my_tree.get_children())
+        c.execute("SELECT * FROM pedidos order By _requisicao") 
+        conn.commit()
+        at = c.fetchall()
+        for i in at: 
+            my_tree.insert("","end", values=i)
     def modificar():
 
         itemSelection = my_tree.selection()[0]
@@ -52,12 +59,7 @@ def Verificar():
         
         c.execute("UPDATE pedidos SET _nome='"+nome+"', _quantidade='"+quantidade+"', _gerente ='"+gerente+"' WHERE _requisicao='"+req+"'")
         conn.commit()
-
-       
-        print(nome)
-        print(quantidade)
-        print(gerente)
-        print(req)
+        atualizar()
 
     janela1 = Tk()
     janela1.geometry("450x300")
@@ -66,6 +68,7 @@ def Verificar():
 
     #query the database
     c.execute("SELECT *,oid FROM pedidos")
+    
     data = c.fetchall()
  
     frames1= Frame(janela1,width = 450, height=150, highlightbackground ="#47CDB5", highlightthicknes=3)
@@ -116,6 +119,7 @@ def Verificar():
     my_tree.heading("nome", text="Produto", anchor=CENTER)
     my_tree.heading("qtd", text="qtd", anchor=W)
 
+
     count = 0
     for record in data:
         my_tree.insert(parent="", index='end', iid=count, text=" ", values=(str(record[0]), str(record[1]), str(record[2])))
@@ -123,25 +127,3 @@ def Verificar():
     
     my_tree.pack(side='left', fill='y')
     
-
-
-
-
-
-def lista():
-    c.execute("SELECT * FROM pedidos order by _requisicao")
-    c.execute(pdd)
-    db.commit()
-    lista = conn.fetchall()
-    print(lista)
-
-
-def atualizarpedido( ):
-    
-    up ="UPDATE  pedidos  SET  , _gerente ='"+gerente+"' where _requisicao= '"+req+"' "
-    db = main.conn #caminho
-    
-    c.execute(up)
-    db.commit()
-    janela.withdraw()
-    Operario.Main()
