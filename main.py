@@ -133,7 +133,7 @@ def escolha(): #Menu de escolha
     janela2.geometry("180x200")
     janela2.configure(bg=colorbg)
 
-    lb = Label(janela2, text="Selecione uma opção: " )
+    lb = Label(janela2, text="Selecione uma opção: ")
     lb.place(x=20,y=15)
     lb.configure(bg=colorbg, border=0)
 

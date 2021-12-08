@@ -31,11 +31,7 @@ def menu_gerente():
 
     bt = Button(root, text="Verificar/Modificar solicitações", border=0, cursor="hand2",command=Verificar, activebackground=colorbg)                                                                
     bt.place(x= 20, y=40)
-
-    #bt2 = Button(root, text="Logout", command=main, border=0, cursor="hand2", activebackground=colorbg)
-    #bt2.place(x= 20, y=90)
-
-
+    
 def Verificar():
     def atualizar():
         my_tree.delete(*my_tree.get_children())
