@@ -12,12 +12,12 @@ from tkinter import ttk
 conn = sqlite3.connect('db.db')
 c = conn.cursor()
 #Cores
-colorbg = "#47CDB5"
-bt = "#00A687"
-camp = "#B5B3C1"
-colorerro = "#ff0000"
-colorsucess = "#018415"
-colorfr = "#078FA5"
+colorbg = "#3A56E0"
+bt = "#133AFF"
+camp = "#DEDDDC"
+colorerro = "#E00807"
+colorsucess = "#13E021"
+colorfr = "#182C94"
 #Janela Tkinter
 root = Tk()
 
@@ -137,11 +137,13 @@ def escolha(): #Menu de escolha
     lb.place(x=20,y=15)
     lb.configure(bg=colorbg, border=0)
 
-    bt = Button(janela2, text="Painel", command=permissoes, border=0, cursor="hand2", activebackground=colorbg)
+    bt = Button(janela2, text="Painel", border=0, command=permissoes, cursor="hand2", activebackground=colorbg)
     bt.place(x= 20, y=40)
+    bt.configure(bg=bt)
     
-    bt2 = Button(janela2, text="Sair", command=Close, border=0, cursor="hand2", activebackground=colorbg)
+    bt2 = Button(janela2, text="Sair", border=0, command=Close, cursor="hand2", activebackground=colorbg)
     bt2.place(x= 20, y=75)
+    bt2.configure(bg=bt)
 
 root.title("Login")
 root.configure(bg=colorbg)

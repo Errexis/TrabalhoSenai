@@ -4,11 +4,11 @@ from tkinter import *
 import sqlite3
 
 #Cores
-colorbg = "#47CDB5"
-bt = "#00A687"
-camp = "#B5B3C1"
-colorerro = "#ff0000"
-colorsucess = "#018415"
+colorbg = "#3A56E0"
+bt = "#133AFF"
+camp = "#DEDDDC"
+colorerro = "#E00807"
+colorsucess = "#13E021"
 
 def CriarPedido(): #cria pedido novo
     global root
