@@ -12,11 +12,12 @@ c = conn.cursor()
 #loop lista
 
 #Cores
-colorbg = "#3A56E0"
-bt = "#133AFF"
-camp = "#DEDDDC"
+colorbg = "#988AFF"
+bt = "#B3A23D"
+camp = "#FFFFFF"
 colorerro = "#E00807"
 colorsucess = "#13E021"
+colorfr = "#5A4FB3"
 
 
 def menu_gerente():
@@ -67,20 +68,15 @@ def Verificar():
     
     data = c.fetchall()
  
-    frames1= Frame(janela1,width = 450, height=150, highlightbackground ="#47CDB5", highlightthicknes=3)
+    frames1= Frame(janela1,width = 450, height=150, highlightbackground=colorbg, highlightthicknes=3)
     frames1.grid(row=0,column=0)
     
-    frames2= Frame(janela1,width = 450, height=150, highlightbackground ="#47CDB5", highlightthicknes=3)
+    frames2= Frame(janela1,width = 450, height=150, highlightbackground=colorbg, highlightthicknes=3)
     frames2.grid(row=1,column=0)
 
     
     bt_alterar=Button(frames1,text='Alterar',command=modificar)
     bt_alterar.place(x=320, y=10)
-
-    bt_codigo=Label(frames1,text='Requsição')
-    bt_codigo.place(y=2,x=15)
-    bt_codigoe=Entry(frames1,width=5)
-    bt_codigoe.place(x=20,y=30)
 
     bt_codigo_nome=Label(frames1,text='Nome')
 
